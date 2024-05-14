@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sw.Controladores.Model.Almacen.Departamento;
 using sw.Datos;
-using sw.Entidades.Almacen.Departamento;
+using sw.Entidades.Articulos.Departamento;
 
 using Microsoft.AspNetCore.Hosting;
 using System.IO;

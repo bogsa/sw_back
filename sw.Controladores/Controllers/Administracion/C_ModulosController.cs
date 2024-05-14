@@ -66,8 +66,6 @@ namespace sw.Controladores.Controllers
             }
         }
 
-      
-
         [HttpGet("[action]/{idUsuario}")]
         public async Task<IActionResult> ListarMisRoles([FromRoute] string idUsuario)
         {
@@ -173,7 +171,7 @@ namespace sw.Controladores.Controllers
 
         }
 
-        
+    
         [HttpPost("[action]")]
         public async Task<IActionResult> ActualizarRol([FromBody] PUT_Rol model)
         {

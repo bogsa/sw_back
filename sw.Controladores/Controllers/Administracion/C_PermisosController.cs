@@ -55,9 +55,9 @@ namespace sw.Controladores.Controllers
         [HttpGet("[action]/{idRol}")]
         public async Task<IEnumerable<GET_ClaimRol>> ListarClaimsModulo([FromRoute] string idRol)
         {
-             
+
             var Tabla = await _context.RoleClaims
-                                  .Where(a => a.RoleId == idRol) 
+                                  .Where(a => a.RoleId == idRol)
                                   .ToListAsync();
 
             if (Tabla.Count == 0)
@@ -69,8 +69,8 @@ namespace sw.Controladores.Controllers
                 return Tabla.Select(a => new GET_ClaimRol
                 {
                     id = a.Id,
-                    ClaimName= a.ClaimType,
-                    ClaimValue=a.ClaimValue,
+                    ClaimName = a.ClaimType,
+                    ClaimValue = a.ClaimValue,
                     Status = false,
                     IdPermiso = 0,
 
@@ -89,17 +89,21 @@ namespace sw.Controladores.Controllers
                 {
                     return BadRequest(new
                     {
-                        error = $"El rol: { model.Rol} no existe"
+                        error = $"El rol: {model.Rol} no existe"
                     });
                 }
                 var v_claimRol = await _roleManager.GetClaimsAsync(v_rol);
-                if (v_claimRol == null)
+                foreach (var claim in v_claimRol)
                 {
-                    return BadRequest(new
+                    if (claim.Value == model.ClaimValue)
                     {
-                        error = $"El rol: { model.Rol} ya tiene un permiso con el nombre: {model.ClaimName}"
-                    });
+                        return BadRequest(new
+                        {
+                            error = $"El rol: {model.Rol} ya tiene un permiso con el nombre: {model.ClaimValue}"
+                        });
+                    }
                 }
+
                 var rolClaim = new Claim(model.ClaimName, model.ClaimValue);
                 var result = await _roleManager.AddClaimAsync(v_rol, rolClaim);
                 if (result.Succeeded)
@@ -111,7 +115,7 @@ namespace sw.Controladores.Controllers
                 }
                 return BadRequest(new
                 {
-                    error = $"No fue posible agregar el permiso: { model.ClaimName}"
+                    error = $"No fue posible agregar el permiso: {model.ClaimName}"
                 });
 
 
@@ -120,12 +124,12 @@ namespace sw.Controladores.Controllers
             {
                 return BadRequest(new
                 {
-                    error = $"No fue posible agregar el permiso: { model.ClaimName}"
+                    error = $"No fue posible agregar el permiso: {model.ClaimName}"
                 });
             }
         }
 
-      
+
         [HttpPost("[action]")]
         public async Task<IActionResult> ElimnarClaimRol([FromBody] POST_ClaimRol model)
         {
@@ -134,7 +138,7 @@ namespace sw.Controladores.Controllers
             {
                 return BadRequest(new
                 {
-                    error = $"No existe un rol con este nombre { model.Rol}"
+                    error = $"No existe un rol con este nombre {model.Rol}"
                 });
             }
             var rolClaim = new Claim(model.ClaimName, model.ClaimValue);
@@ -144,7 +148,7 @@ namespace sw.Controladores.Controllers
             {
                 return Ok(new
                 {
-                    result = $"El permiso { model.ClaimName } se elimino correctamente"
+                    result = $"El permiso {model.ClaimName} se elimino correctamente"
                 });
             }
             else
@@ -157,10 +161,10 @@ namespace sw.Controladores.Controllers
 
         }
 
-    
 
 
-        
+
+
 
     }
 }

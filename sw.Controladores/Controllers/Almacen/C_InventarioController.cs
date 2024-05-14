@@ -10,7 +10,7 @@ using sw.Controladores.Model.Almacen.Articulo;
 using sw.Controladores.Model.Almacen.Categoria;
 using sw.Controladores.Model.Almacen.Inventario;
 using sw.Datos;
-using sw.Entidades.Almacen.Articulo;
+using sw.Entidades.Articulos.Articulo;
 
 
 namespace sw.Controladores.Controllers

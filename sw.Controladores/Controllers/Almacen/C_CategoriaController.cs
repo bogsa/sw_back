@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sw.Controladores.Model.Almacen.Categoria;
 using sw.Datos;
-using sw.Entidades.Almacen.Categoria;
+using sw.Entidades.Articulos.Categoria;
 
 
 namespace sw.Controladores.Controllers

@@ -459,7 +459,60 @@ namespace sw.Datos.Migrations
                     b.ToTable("Admin_UsuarioEmpresas", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Articulo.E_Articulo", b =>
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
+                {
+                    b.Property<int>("IdInventario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventario"));
+
+                    b.Property<int>("E_ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_CentroTrabajoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Existencias")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdInventario");
+
+                    b.HasIndex("E_ArticuloId");
+
+                    b.HasIndex("E_CentroTrabajoId");
+
+                    b.ToTable("Alm_Inventario", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.Property<int>("IdInventarioDetallePrecios")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventarioDetallePrecios"));
+
+                    b.Property<decimal>("Cantidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("E_InventarioId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MargenUtilidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdInventarioDetallePrecios");
+
+                    b.HasIndex("E_InventarioId");
+
+                    b.ToTable("Alm_InventarioDetallePrecios", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
                 {
                     b.Property<int>("IdArticulo")
                         .ValueGeneratedOnAdd()
@@ -562,7 +615,7 @@ namespace sw.Datos.Migrations
                     b.ToTable("Alm_Articulo", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Articulo.E_ArticuloDetalleImpuestos", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_ArticuloDetalleImpuestos", b =>
                 {
                     b.Property<int>("IdArticuloDetalleImpuestos")
                         .ValueGeneratedOnAdd()
@@ -592,7 +645,7 @@ namespace sw.Datos.Migrations
                     b.ToTable("Alm_ArticuloDetalleImpuestos", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Categoria.E_Categoria", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
                 {
                     b.Property<int>("IdCategoria")
                         .ValueGeneratedOnAdd()
@@ -616,7 +669,7 @@ namespace sw.Datos.Migrations
                     b.ToTable("Alm_Categoria", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Departamento.E_Departamento", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Departamento.E_Departamento", b =>
                 {
                     b.Property<int>("IdDepartamento")
                         .ValueGeneratedOnAdd()
@@ -640,60 +693,7 @@ namespace sw.Datos.Migrations
                     b.ToTable("Alm_Departamento", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
-                {
-                    b.Property<int>("IdInventario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventario"));
-
-                    b.Property<int>("E_ArticuloId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_CentroTrabajoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Existencias")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdInventario");
-
-                    b.HasIndex("E_ArticuloId");
-
-                    b.HasIndex("E_CentroTrabajoId");
-
-                    b.ToTable("Alm_Inventario", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
-                {
-                    b.Property<int>("IdInventarioDetallePrecios")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventarioDetallePrecios"));
-
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("E_InventarioId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MargenUtilidad")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdInventarioDetallePrecios");
-
-                    b.HasIndex("E_InventarioId");
-
-                    b.ToTable("Alm_InventarioDetallePrecios", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Clientes.E_Clientes", b =>
+            modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
                 {
                     b.Property<int>("IdCliente")
                         .ValueGeneratedOnAdd()
@@ -709,6 +709,9 @@ namespace sw.Datos.Migrations
 
                     b.Property<string>("Colonia")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Dcto_Individual")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Default")
                         .HasColumnType("bit");
@@ -1397,9 +1400,39 @@ namespace sw.Datos.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Articulo.E_Articulo", b =>
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
                 {
-                    b.HasOne("sw.Entidades.Almacen.Categoria.E_Categoria", "E_Categoria")
+                    b.HasOne("sw.Entidades.Articulos.Articulo.E_Articulo", "E_Articulo")
+                        .WithMany()
+                        .HasForeignKey("E_ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("sw.Entidades.Administracion.CentroTrabajo.E_CentroTrabajo", "E_CentroTrabajo")
+                        .WithMany()
+                        .HasForeignKey("E_CentroTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Articulo");
+
+                    b.Navigation("E_CentroTrabajo");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.HasOne("sw.Entidades.Almacen.Inventario.E_Inventario", "E_Inventario")
+                        .WithMany("e_InventarioDetallePrecios")
+                        .HasForeignKey("E_InventarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Inventario");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
+                {
+                    b.HasOne("sw.Entidades.Articulos.Categoria.E_Categoria", "E_Categoria")
                         .WithMany("E_Articulos")
                         .HasForeignKey("E_CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1448,9 +1481,9 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_UnidadMedidaV");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Articulo.E_ArticuloDetalleImpuestos", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_ArticuloDetalleImpuestos", b =>
                 {
-                    b.HasOne("sw.Entidades.Almacen.Articulo.E_Articulo", "E_Articulo")
+                    b.HasOne("sw.Entidades.Articulos.Articulo.E_Articulo", "E_Articulo")
                         .WithMany("E_ArticuloDetalleImpuestos")
                         .HasForeignKey("E_ArticuloId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1459,9 +1492,9 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Articulo");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Categoria.E_Categoria", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
                 {
-                    b.HasOne("sw.Entidades.Almacen.Departamento.E_Departamento", "E_Departamento")
+                    b.HasOne("sw.Entidades.Articulos.Departamento.E_Departamento", "E_Departamento")
                         .WithMany()
                         .HasForeignKey("E_DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1470,7 +1503,7 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Departamento");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Departamento.E_Departamento", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Departamento.E_Departamento", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
                         .WithMany()
@@ -1481,37 +1514,7 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Corporativo");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
-                {
-                    b.HasOne("sw.Entidades.Almacen.Articulo.E_Articulo", "E_Articulo")
-                        .WithMany()
-                        .HasForeignKey("E_ArticuloId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Administracion.CentroTrabajo.E_CentroTrabajo", "E_CentroTrabajo")
-                        .WithMany()
-                        .HasForeignKey("E_CentroTrabajoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Articulo");
-
-                    b.Navigation("E_CentroTrabajo");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
-                {
-                    b.HasOne("sw.Entidades.Almacen.Inventario.E_Inventario", "E_Inventario")
-                        .WithMany("e_InventarioDetallePrecios")
-                        .HasForeignKey("E_InventarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Inventario");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Clientes.E_Clientes", b =>
+            modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Coorporativo")
                         .WithMany()
@@ -1608,19 +1611,19 @@ namespace sw.Datos.Migrations
                     b.Navigation("e_TFDsDetalles");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Articulo.E_Articulo", b =>
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
+                {
+                    b.Navigation("e_InventarioDetallePrecios");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
                 {
                     b.Navigation("E_ArticuloDetalleImpuestos");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Almacen.Categoria.E_Categoria", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
                 {
                     b.Navigation("E_Articulos");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
-                {
-                    b.Navigation("e_InventarioDetallePrecios");
                 });
 #pragma warning restore 612, 618
         }

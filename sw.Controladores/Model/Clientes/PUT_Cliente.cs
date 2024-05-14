@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sw.Controladores.Model.Clientes
+namespace Solucion.Controladores.Model.Clientes
 {
     public class PUT_Cliente
     {

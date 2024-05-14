@@ -18,11 +18,11 @@ using sw.Datos.Administracion.TFDs;
 using sw.Datos.Configuracion.CatalogoSAT;
 using sw.Datos.Configuracion.Almacen;
 
-using sw.Datos.Clientes;
+using sw.Datos.Clientes.Cliente;
 
-using sw.Datos.Almacen.Categoria;
-using sw.Datos.Almacen.Departamento;
-using sw.Datos.Almacen.Articulo;
+using sw.Datos.Articulos.Categoria;
+using sw.Datos.Articulos.Departamento;
+using sw.Datos.Articulos.Articulo;
 using sw.Datos.Almacen.Inventario;
 
 
@@ -41,11 +41,11 @@ using sw.Entidades.Administracion.PerfilesPer;
 using sw.Entidades.Configuracion.CatalogoSAT;
 using sw.Entidades.Configuracion.Almacen;
 
-using sw.Entidades.Clientes;
+using sw.Entidades.Clientes.Cliente;
 
-using sw.Entidades.Almacen.Categoria;
-using sw.Entidades.Almacen.Departamento;
-using sw.Entidades.Almacen.Articulo;
+using sw.Entidades.Articulos.Categoria;
+using sw.Entidades.Articulos.Departamento;
+using sw.Entidades.Articulos.Articulo;
 using sw.Entidades.Almacen.Inventario;
 
 

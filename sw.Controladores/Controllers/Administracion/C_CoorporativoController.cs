@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using sw.Datos;
 using sw.Controladores.Model.Administracion.Coorporativo;
 using sw.Entidades.Administracion.Coorporativo;
-using sw.Entidades.Clientes;
+using sw.Entidades.Clientes.Cliente;
 using sw.Entidades.Administracion.Empresa;
 using sw.Entidades.Administracion.CentroTrabajo;
 using System.Data;

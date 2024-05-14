@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using sw.Entidades.Administracion.CentroTrabajo;
-using sw.Entidades.Almacen.Articulo; 
+using sw.Entidades.Articulos.Articulo; 
 
 namespace sw.Entidades.Almacen.Inventario
 {
