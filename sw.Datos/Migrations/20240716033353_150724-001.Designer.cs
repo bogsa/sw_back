@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240716033353_150724-001")]
+    partial class _150724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -483,6 +486,33 @@ namespace sw.Datos.Migrations
                     b.HasIndex("E_ProductoId");
 
                     b.ToTable("Alm_Inventario", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.Property<int>("IdInventarioDetallePrecios")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventarioDetallePrecios"));
+
+                    b.Property<decimal>("Cantidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("E_InventarioId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MargenUtilidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdInventarioDetallePrecios");
+
+                    b.HasIndex("E_InventarioId");
+
+                    b.ToTable("Alm_InventarioDetallePrecios", (string)null);
                 });
 
             modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
@@ -1112,7 +1142,7 @@ namespace sw.Datos.Migrations
                     b.Property<string>("CuentaPredial")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DescripcionProducto")
+                    b.Property<string>("DescripcionArticulo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("E_CategoriaId")
@@ -1151,7 +1181,7 @@ namespace sw.Datos.Migrations
                     b.Property<string>("Modelo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NombreProducto")
+                    b.Property<string>("NombreArticulo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("NumerosSerie")
@@ -1220,36 +1250,6 @@ namespace sw.Datos.Migrations
                     b.HasIndex("E_ProductoId");
 
                     b.ToTable("Pro_ProductoDetalleImpuestos", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetallePrecios", b =>
-                {
-                    b.Property<int>("IdProductoDetallePrecios")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProductoDetallePrecios"));
-
-                    b.Property<decimal>("CantidadMayor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CantidadMenor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("E_ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MargenUtilidad")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdProductoDetallePrecios");
-
-                    b.HasIndex("E_ProductoId");
-
-                    b.ToTable("Pro_ProductoDetallePrecios", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -1422,6 +1422,17 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Producto");
                 });
 
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.HasOne("sw.Entidades.Almacen.Inventario.E_Inventario", "E_Inventario")
+                        .WithMany("e_InventarioDetallePrecios")
+                        .HasForeignKey("E_InventarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Inventario");
+                });
+
             modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Coorporativo")
@@ -1583,17 +1594,6 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Producto");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetallePrecios", b =>
-                {
-                    b.HasOne("sw.Entidades.Productos.Producto.E_Producto", "E_Producto")
-                        .WithMany("E_ProductoDetallePrecios")
-                        .HasForeignKey("E_ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Producto");
-                });
-
             modelBuilder.Entity("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", b =>
                 {
                     b.Navigation("e_Empresas");
@@ -1614,6 +1614,11 @@ namespace sw.Datos.Migrations
                     b.Navigation("e_TFDsDetalles");
                 });
 
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
+                {
+                    b.Navigation("e_InventarioDetallePrecios");
+                });
+
             modelBuilder.Entity("sw.Entidades.Productos.Categoria.E_Categoria", b =>
                 {
                     b.Navigation("E_Productos");
@@ -1622,8 +1627,6 @@ namespace sw.Datos.Migrations
             modelBuilder.Entity("sw.Entidades.Productos.Producto.E_Producto", b =>
                 {
                     b.Navigation("E_ProductoDetalleImpuestos");
-
-                    b.Navigation("E_ProductoDetallePrecios");
                 });
 #pragma warning restore 612, 618
         }

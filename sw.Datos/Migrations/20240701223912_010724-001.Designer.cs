@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240701223912_010724-001")]
+    partial class _010724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -467,10 +470,10 @@ namespace sw.Datos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventario"));
 
-                    b.Property<int>("E_CentroTrabajoId")
+                    b.Property<int>("E_ArticuloId")
                         .HasColumnType("int");
 
-                    b.Property<int>("E_ProductoId")
+                    b.Property<int>("E_CentroTrabajoId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Existencias")
@@ -478,11 +481,219 @@ namespace sw.Datos.Migrations
 
                     b.HasKey("IdInventario");
 
+                    b.HasIndex("E_ArticuloId");
+
                     b.HasIndex("E_CentroTrabajoId");
 
-                    b.HasIndex("E_ProductoId");
-
                     b.ToTable("Alm_Inventario", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.Property<int>("IdInventarioDetallePrecios")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInventarioDetallePrecios"));
+
+                    b.Property<decimal>("Cantidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("E_InventarioId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MargenUtilidad")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdInventarioDetallePrecios");
+
+                    b.HasIndex("E_InventarioId");
+
+                    b.ToTable("Alm_InventarioDetallePrecios", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
+                {
+                    b.Property<int>("IdArticulo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArticulo"));
+
+                    b.Property<string>("Clave")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CodigoBarras")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ControlaExistencias")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Corrida")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CuentaPredial")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescripcionArticulo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("E_CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_ObjetoImpuestoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_ProductoServicioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_ProveedorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_UnidadMedidaCId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("E_UnidadMedidaVId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Factor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("IdentificadorUnico")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Localizacion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LotesCaducidades")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Marca")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Modelo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreArticulo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NumerosSerie")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Paquete")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Receta")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("StatusProduccion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("StatusServicio")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdArticulo");
+
+                    b.HasIndex("E_CategoriaId");
+
+                    b.HasIndex("E_ObjetoImpuestoId");
+
+                    b.HasIndex("E_ProductoServicioId");
+
+                    b.HasIndex("E_ProveedorId");
+
+                    b.HasIndex("E_UnidadMedidaCId");
+
+                    b.HasIndex("E_UnidadMedidaVId");
+
+                    b.ToTable("Art_Articulo", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_ArticuloDetalleImpuestos", b =>
+                {
+                    b.Property<int>("IdArticuloDetalleImpuestos")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArticuloDetalleImpuestos"));
+
+                    b.Property<int>("E_ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Impuesto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoFactor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoImpuesto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdArticuloDetalleImpuestos");
+
+                    b.HasIndex("E_ArticuloId");
+
+                    b.ToTable("Art_ArticuloDetalleImpuestos", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
+                {
+                    b.Property<int>("IdCategoria")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCategoria"));
+
+                    b.Property<int>("E_DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdCategoria");
+
+                    b.HasIndex("E_DepartamentoId");
+
+                    b.ToTable("Art_Categoria", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Departamento.E_Departamento", b =>
+                {
+                    b.Property<int>("IdDepartamento")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDepartamento"));
+
+                    b.Property<int>("E_CorporativoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdDepartamento");
+
+                    b.HasIndex("E_CorporativoId");
+
+                    b.ToTable("Art_Departamento", (string)null);
                 });
 
             modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
@@ -1041,217 +1252,6 @@ namespace sw.Datos.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Productos.Categoria.E_Categoria", b =>
-                {
-                    b.Property<int>("IdCategoria")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCategoria"));
-
-                    b.Property<int>("E_DepartamentoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("IdCategoria");
-
-                    b.HasIndex("E_DepartamentoId");
-
-                    b.ToTable("Pro_Categoria", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Departamento.E_Departamento", b =>
-                {
-                    b.Property<int>("IdDepartamento")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDepartamento"));
-
-                    b.Property<int>("E_CorporativoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("IdDepartamento");
-
-                    b.HasIndex("E_CorporativoId");
-
-                    b.ToTable("Pro_Departamento", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_Producto", b =>
-                {
-                    b.Property<int>("IdProducto")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProducto"));
-
-                    b.Property<string>("Clave")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CodigoBarras")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ControlaExistencias")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Corrida")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("CuentaPredial")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DescripcionProducto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("E_CategoriaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ObjetoImpuestoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProductoServicioId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProveedorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_UnidadMedidaCId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_UnidadMedidaVId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Factor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("IdentificadorUnico")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Localizacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LotesCaducidades")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Marca")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Modelo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NombreProducto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("NumerosSerie")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Paquete")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("PrecioCompra")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("Receta")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("StatusProduccion")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("StatusServicio")
-                        .HasColumnType("bit");
-
-                    b.HasKey("IdProducto");
-
-                    b.HasIndex("E_CategoriaId");
-
-                    b.HasIndex("E_ObjetoImpuestoId");
-
-                    b.HasIndex("E_ProductoServicioId");
-
-                    b.HasIndex("E_ProveedorId");
-
-                    b.HasIndex("E_UnidadMedidaCId");
-
-                    b.HasIndex("E_UnidadMedidaVId");
-
-                    b.ToTable("Pro_Producto", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetalleImpuestos", b =>
-                {
-                    b.Property<int>("IdProductoDetalleImpuestos")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProductoDetalleImpuestos"));
-
-                    b.Property<int>("E_ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Impuesto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TipoFactor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TipoImpuesto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdProductoDetalleImpuestos");
-
-                    b.HasIndex("E_ProductoId");
-
-                    b.ToTable("Pro_ProductoDetalleImpuestos", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetallePrecios", b =>
-                {
-                    b.Property<int>("IdProductoDetallePrecios")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProductoDetallePrecios"));
-
-                    b.Property<decimal>("CantidadMayor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("CantidadMenor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("E_ProductoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MargenUtilidad")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PrecioVenta")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdProductoDetallePrecios");
-
-                    b.HasIndex("E_ProductoId");
-
-                    b.ToTable("Pro_ProductoDetallePrecios", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("sw.Entidades.Identity.ApplicationUser", null)
@@ -1405,21 +1405,116 @@ namespace sw.Datos.Migrations
 
             modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
                 {
+                    b.HasOne("sw.Entidades.Articulos.Articulo.E_Articulo", "E_Articulo")
+                        .WithMany()
+                        .HasForeignKey("E_ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("sw.Entidades.Administracion.CentroTrabajo.E_CentroTrabajo", "E_CentroTrabajo")
                         .WithMany()
                         .HasForeignKey("E_CentroTrabajoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("sw.Entidades.Productos.Producto.E_Producto", "E_Producto")
+                    b.Navigation("E_Articulo");
+
+                    b.Navigation("E_CentroTrabajo");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_InventarioDetallePrecios", b =>
+                {
+                    b.HasOne("sw.Entidades.Almacen.Inventario.E_Inventario", "E_Inventario")
+                        .WithMany("e_InventarioDetallePrecios")
+                        .HasForeignKey("E_InventarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Inventario");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
+                {
+                    b.HasOne("sw.Entidades.Articulos.Categoria.E_Categoria", "E_Categoria")
+                        .WithMany("E_Articulos")
+                        .HasForeignKey("E_CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_ObjetoImpuesto", "E_ObjetoImpuesto")
                         .WithMany()
-                        .HasForeignKey("E_ProductoId")
+                        .HasForeignKey("E_ObjetoImpuestoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("E_CentroTrabajo");
+                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_ProductoServicio", "E_ProductoServicio")
+                        .WithMany()
+                        .HasForeignKey("E_ProductoServicioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("E_Producto");
+                    b.HasOne("sw.Entidades.Configuracion.Almacen.E_Proveedor", "E_Proveedor")
+                        .WithMany()
+                        .HasForeignKey("E_ProveedorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_UnidadMedida", "E_UnidadMedidaC")
+                        .WithMany()
+                        .HasForeignKey("E_UnidadMedidaCId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_UnidadMedida", "E_UnidadMedidaV")
+                        .WithMany()
+                        .HasForeignKey("E_UnidadMedidaVId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("E_Categoria");
+
+                    b.Navigation("E_ObjetoImpuesto");
+
+                    b.Navigation("E_ProductoServicio");
+
+                    b.Navigation("E_Proveedor");
+
+                    b.Navigation("E_UnidadMedidaC");
+
+                    b.Navigation("E_UnidadMedidaV");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_ArticuloDetalleImpuestos", b =>
+                {
+                    b.HasOne("sw.Entidades.Articulos.Articulo.E_Articulo", "E_Articulo")
+                        .WithMany("E_ArticuloDetalleImpuestos")
+                        .HasForeignKey("E_ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Articulo");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
+                {
+                    b.HasOne("sw.Entidades.Articulos.Departamento.E_Departamento", "E_Departamento")
+                        .WithMany()
+                        .HasForeignKey("E_DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Departamento");
+                });
+
+            modelBuilder.Entity("sw.Entidades.Articulos.Departamento.E_Departamento", b =>
+                {
+                    b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
+                        .WithMany()
+                        .HasForeignKey("E_CorporativoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("E_Corporativo");
                 });
 
             modelBuilder.Entity("sw.Entidades.Clientes.Cliente.E_Clientes", b =>
@@ -1499,101 +1594,6 @@ namespace sw.Datos.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("sw.Entidades.Productos.Categoria.E_Categoria", b =>
-                {
-                    b.HasOne("sw.Entidades.Productos.Departamento.E_Departamento", "E_Departamento")
-                        .WithMany()
-                        .HasForeignKey("E_DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Departamento");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Departamento.E_Departamento", b =>
-                {
-                    b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
-                        .WithMany()
-                        .HasForeignKey("E_CorporativoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Corporativo");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_Producto", b =>
-                {
-                    b.HasOne("sw.Entidades.Productos.Categoria.E_Categoria", "E_Categoria")
-                        .WithMany("E_Productos")
-                        .HasForeignKey("E_CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_ObjetoImpuesto", "E_ObjetoImpuesto")
-                        .WithMany()
-                        .HasForeignKey("E_ObjetoImpuestoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_ProductoServicio", "E_ProductoServicio")
-                        .WithMany()
-                        .HasForeignKey("E_ProductoServicioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.Almacen.E_Proveedor", "E_Proveedor")
-                        .WithMany()
-                        .HasForeignKey("E_ProveedorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_UnidadMedida", "E_UnidadMedidaC")
-                        .WithMany()
-                        .HasForeignKey("E_UnidadMedidaCId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_UnidadMedida", "E_UnidadMedidaV")
-                        .WithMany()
-                        .HasForeignKey("E_UnidadMedidaVId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("E_Categoria");
-
-                    b.Navigation("E_ObjetoImpuesto");
-
-                    b.Navigation("E_ProductoServicio");
-
-                    b.Navigation("E_Proveedor");
-
-                    b.Navigation("E_UnidadMedidaC");
-
-                    b.Navigation("E_UnidadMedidaV");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetalleImpuestos", b =>
-                {
-                    b.HasOne("sw.Entidades.Productos.Producto.E_Producto", "E_Producto")
-                        .WithMany("E_ProductoDetalleImpuestos")
-                        .HasForeignKey("E_ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Producto");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_ProductoDetallePrecios", b =>
-                {
-                    b.HasOne("sw.Entidades.Productos.Producto.E_Producto", "E_Producto")
-                        .WithMany("E_ProductoDetallePrecios")
-                        .HasForeignKey("E_ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Producto");
-                });
-
             modelBuilder.Entity("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", b =>
                 {
                     b.Navigation("e_Empresas");
@@ -1614,16 +1614,19 @@ namespace sw.Datos.Migrations
                     b.Navigation("e_TFDsDetalles");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Productos.Categoria.E_Categoria", b =>
+            modelBuilder.Entity("sw.Entidades.Almacen.Inventario.E_Inventario", b =>
                 {
-                    b.Navigation("E_Productos");
+                    b.Navigation("e_InventarioDetallePrecios");
                 });
 
-            modelBuilder.Entity("sw.Entidades.Productos.Producto.E_Producto", b =>
+            modelBuilder.Entity("sw.Entidades.Articulos.Articulo.E_Articulo", b =>
                 {
-                    b.Navigation("E_ProductoDetalleImpuestos");
+                    b.Navigation("E_ArticuloDetalleImpuestos");
+                });
 
-                    b.Navigation("E_ProductoDetallePrecios");
+            modelBuilder.Entity("sw.Entidades.Articulos.Categoria.E_Categoria", b =>
+                {
+                    b.Navigation("E_Articulos");
                 });
 #pragma warning restore 612, 618
         }
