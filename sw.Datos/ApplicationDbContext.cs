@@ -17,6 +17,7 @@ using sw.Datos.Administracion.TFDs;
 
 using sw.Datos.Configuracion.CatalogoSAT;
 using sw.Datos.Configuracion.Almacen;
+using sw.Datos.Configuracion.Gastos;
 
 using sw.Datos.Clientes.Cliente;
 
@@ -40,6 +41,7 @@ using sw.Entidades.Administracion.PerfilesPer;
 
 using sw.Entidades.Configuracion.CatalogoSAT;
 using sw.Entidades.Configuracion.Almacen;
+using sw.Entidades.Configuracion.Gastos;
 
 using sw.Entidades.Clientes.Cliente;
 
@@ -94,6 +96,9 @@ namespace sw.Datos
         public DbSet<E_Marca> E_Marcas { get; set; }
         public DbSet<E_Proveedor> E_Proveedor { get; set; }
 
+        //MODULO GASTOS
+        public DbSet<E_Gasto> E_Gastos { get; set; }
+
         //MODULO CLIENTE
         public DbSet<E_Clientes> E_Clientes { get; set; }
 
@@ -146,6 +151,8 @@ namespace sw.Datos
             //MODULO CONFIGURACION_ALMACEN
             modelBuilder.ApplyConfiguration(new D_Marca());
             modelBuilder.ApplyConfiguration(new D_Proveedor());
+            //MODULO GASTOS
+            modelBuilder.ApplyConfiguration(new D_Gasto());
             //MODULO CLIENTE
             modelBuilder.ApplyConfiguration(new D_Clientes());
             //MODULO ALMACEN
