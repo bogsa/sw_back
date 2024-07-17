@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sw.Controladores.Model.Almacen.Inventario
+namespace sw.Controladores.Model.Productos.Producto
 {
-  public class GET_Inventario
+  public class GET_Producto
   {
-    public int IdInventario { get; set; }
-    public int E_ProductoId{ get; set; }
-    public Decimal Existencias { get; set; }
-
-    
+    /*---   DATOS GENERALES   ---------------------------------------------------------*/
+    public int IdProducto { get; set; }
     public Guid IdentificadorUnico { get; set; }
     public string Clave { get; set; }
     public string CodigoBarras { get; set; }

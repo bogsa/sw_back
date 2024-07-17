@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using sw.Entidades.Administracion.CentroTrabajo;
-using sw.Entidades.Articulos.Articulo; 
+using sw.Entidades.Productos.Producto; 
 
 namespace sw.Entidades.Almacen.Inventario
 {
@@ -12,11 +13,11 @@ namespace sw.Entidades.Almacen.Inventario
 
         public int E_CentroTrabajoId { get; set; }
         public E_CentroTrabajo  E_CentroTrabajo { get; set; }
-        public int E_ArticuloId { get; set; }
-        public E_Articulo E_Articulo { get; set; } 
+        public int E_ProductoId { get; set; }
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public E_Producto E_Producto { get; set; } 
         public Decimal  Existencias { get; set; }
-        public ICollection<E_InventarioDetallePrecios> e_InventarioDetallePrecios { get; set; }
-
+   
   
       
 

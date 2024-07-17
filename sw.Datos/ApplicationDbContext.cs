@@ -21,9 +21,10 @@ using sw.Datos.Configuracion.Gastos;
 
 using sw.Datos.Clientes.Cliente;
 
-using sw.Datos.Articulos.Categoria;
-using sw.Datos.Articulos.Departamento;
-using sw.Datos.Articulos.Articulo;
+using sw.Datos.Productos.Categoria;
+using sw.Datos.Productos.Departamento;
+using sw.Datos.Productos.Producto;
+
 using sw.Datos.Almacen.Inventario;
 
 
@@ -45,9 +46,10 @@ using sw.Entidades.Configuracion.Gastos;
 
 using sw.Entidades.Clientes.Cliente;
 
-using sw.Entidades.Articulos.Categoria;
-using sw.Entidades.Articulos.Departamento;
-using sw.Entidades.Articulos.Articulo;
+using sw.Entidades.Productos.Categoria;
+using sw.Entidades.Productos.Departamento;
+using sw.Entidades.Productos.Producto;
+
 using sw.Entidades.Almacen.Inventario;
 
 
@@ -106,10 +108,14 @@ namespace sw.Datos
         //MODULO ALMACEN
         public DbSet<E_Departamento> E_Departamentos { get; set; }
         public DbSet<E_Categoria> E_Categorias { get; set; }
-        public DbSet<E_Articulo> E_Articulo { get; set; }
-        public DbSet<E_ArticuloDetalleImpuestos> E_ArticuloDetalleImpuestos { get; set; }
+        public DbSet<E_Producto> E_Producto { get; set; }
+        public DbSet<E_ProductoDetalleImpuestos> E_ProductoDetalleImpuestos { get; set; }
+        public DbSet<E_ProductoDetallePrecios> E_ProductoDetallePrecios { get; set; }
+
+
+        // MODULO INVENTARIO
         public DbSet<E_Inventario> E_Inventarios { get; set; }
-        public DbSet<E_InventarioDetallePrecios> E_InventarioDetallePrecios { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
@@ -155,13 +161,16 @@ namespace sw.Datos
             modelBuilder.ApplyConfiguration(new D_Gasto());
             //MODULO CLIENTE
             modelBuilder.ApplyConfiguration(new D_Clientes());
-            //MODULO ALMACEN
+            //MODULO PRODUCTO
             modelBuilder.ApplyConfiguration(new D_Departamento());
             modelBuilder.ApplyConfiguration(new D_Categoria());
-            modelBuilder.ApplyConfiguration(new D_Articulo());
-            modelBuilder.ApplyConfiguration(new D_ArticulosDetalleImpuestos());
+            modelBuilder.ApplyConfiguration(new D_Producto());
+            modelBuilder.ApplyConfiguration(new D_ProductoDetalleImpuestos());
+            modelBuilder.ApplyConfiguration(new D_ProductoDetallePrecios());
+
+            //MODULO ALMACEN
             modelBuilder.ApplyConfiguration(new D_Inventario());
-            modelBuilder.ApplyConfiguration(new D_InventarioDetallePrecios());
+
 
         }
 

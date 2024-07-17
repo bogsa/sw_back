@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240717214627_170724-001")]
+    partial class _170724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -855,27 +858,6 @@ namespace sw.Datos.Migrations
                     b.ToTable("Conf_UsoCFDI", (string)null);
                 });
 
-            modelBuilder.Entity("sw.Entidades.Configuracion.Gastos.E_Gasto", b =>
-                {
-                    b.Property<int>("IdGasto")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGasto"));
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("E_CorporativoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdGasto");
-
-                    b.HasIndex("E_CorporativoId");
-
-                    b.ToTable("Conf_Gasto", (string)null);
-                });
-
             modelBuilder.Entity("sw.Entidades.Identity.ApplicationRol", b =>
                 {
                     b.Property<string>("Id")
@@ -1466,17 +1448,6 @@ namespace sw.Datos.Migrations
                 });
 
             modelBuilder.Entity("sw.Entidades.Configuracion.Almacen.E_Proveedor", b =>
-                {
-                    b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
-                        .WithMany()
-                        .HasForeignKey("E_CorporativoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Corporativo");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Configuracion.Gastos.E_Gasto", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
                         .WithMany()
