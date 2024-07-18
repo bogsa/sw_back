@@ -92,7 +92,7 @@ namespace sw.Datos
         public DbSet<E_ObjetoImpuesto> E_ObjetoImpuestos { get; set; }
         public DbSet<E_TipoFactor> E_TipoFactors { get; set; }
 
-        //MODULO CONFIGURACION_ALMACEN
+        //MODULO CONFIGURACION_PRODUCTO
         public DbSet<E_Marca> E_Marcas { get; set; }
         public DbSet<E_Proveedor> E_Proveedor { get; set; }
 
@@ -100,7 +100,7 @@ namespace sw.Datos
         public DbSet<E_Clientes> E_Clientes { get; set; }
 
 
-        //MODULO ALMACEN
+        //MODULO PRODUCTOS
         public DbSet<E_Departamento> E_Departamentos { get; set; }
         public DbSet<E_Categoria> E_Categorias { get; set; }
         public DbSet<E_Producto> E_Producto { get; set; }
