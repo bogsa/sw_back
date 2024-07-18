@@ -31,5 +31,7 @@ namespace sw.Entidades.Clientes.Cliente
         public Boolean Default { get; set; }
         public double Descuento { get; set; } 
         public Boolean  Dcto_Individual { get; set; }
+
+
     }
 }
