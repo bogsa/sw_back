@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240730144940_300724-001")]
+    partial class _300724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -499,6 +502,15 @@ namespace sw.Datos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCliente"));
 
+                    b.Property<string>("CP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Calle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Colonia")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Dcto_Individual")
                         .HasColumnType("bit");
 
@@ -514,64 +526,16 @@ namespace sw.Datos.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Precio_Asignado")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Precio_Individual")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdCliente");
-
-                    b.HasIndex("E_CoorporativoId");
-
-                    b.ToTable("Cli_Clientes", (string)null);
-                });
-
-            modelBuilder.Entity("sw.Entidades.Clientes.ClienteDatoFiscal.E_ClienteDatosFiscales", b =>
-                {
-                    b.Property<int>("IdClienteDatosFiscales")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdClienteDatosFiscales"));
-
-                    b.Property<string>("CP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Calle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClientesIdCliente")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Colonia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("E_ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_RegimenFiscalId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Municipio")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
->>>>>>> fcd91d75f51c82a93beb64645390ced025e3248e
                     b.Property<string>("Num_Ext")
                         .HasColumnType("nvarchar(max)");
 
@@ -587,16 +551,17 @@ namespace sw.Datos.Migrations
                     b.Property<string>("RazonSocial")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TelFijo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TelMovil")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdClienteDatosFiscales");
+                    b.HasKey("IdCliente");
 
-                    b.HasIndex("ClientesIdCliente");
+                    b.HasIndex("E_CoorporativoId");
 
-                    b.HasIndex("E_RegimenFiscalId");
-
-                    b.ToTable("Cli_ClienteDatosFiscales", (string)null);
+                    b.ToTable("Cli_Clientes", (string)null);
                 });
 
             modelBuilder.Entity("sw.Entidades.Configuracion.CatalogoSAT.E_FormaPago", b =>
@@ -854,15 +819,6 @@ namespace sw.Datos.Migrations
                     b.ToTable("Conf_Gasto", (string)null);
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("sw.Entidades.Gastos.E_Gastoreg", b =>
-                {
-                    b.Property<int>("IdGastoreg")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGastoreg"));
-=======
             modelBuilder.Entity("sw.Entidades.Configuracion.Productos.E_Marca", b =>
                 {
                     b.Property<int>("IdMarca")
@@ -870,37 +826,10 @@ namespace sw.Datos.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMarca"));
->>>>>>> fcd91d75f51c82a93beb64645390ced025e3248e
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-                    b.Property<int>("E_CentroTrabajoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_GastoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("IdGastoreg");
-
-                    b.HasIndex("E_CentroTrabajoId");
-
-                    b.HasIndex("E_GastoId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Gas_Gasto", (string)null);
-=======
                     b.Property<int>("E_CorporativoId")
                         .HasColumnType("int");
 
@@ -939,7 +868,6 @@ namespace sw.Datos.Migrations
                     b.HasIndex("E_CorporativoId");
 
                     b.ToTable("Pro_Proveedor", (string)null);
->>>>>>> fcd91d75f51c82a93beb64645390ced025e3248e
                 });
 
             modelBuilder.Entity("sw.Entidades.Identity.ApplicationRol", b =>
@@ -1209,12 +1137,6 @@ namespace sw.Datos.Migrations
                     b.Property<int>("E_ObjetoImpuestoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("E_ProductoDetalleImpuestosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProductoDetallePreciosId")
-                        .HasColumnType("int");
-
                     b.Property<int>("E_ProductoServicioId")
                         .HasColumnType("int");
 
@@ -1232,9 +1154,6 @@ namespace sw.Datos.Migrations
 
                     b.Property<Guid>("IdentificadorUnico")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Localizacion")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LotesCaducidades")
                         .HasColumnType("bit");
@@ -1329,6 +1248,9 @@ namespace sw.Datos.Migrations
 
                     b.Property<decimal>("CantidadMenor")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("E_ProductoId")
                         .HasColumnType("int");
@@ -1527,48 +1449,6 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Coorporativo");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("sw.Entidades.Clientes.ClienteDatoFiscal.E_ClienteDatosFiscales", b =>
-                {
-                    b.HasOne("sw.Entidades.Clientes.Cliente.E_Clientes", "Clientes")
-                        .WithMany()
-                        .HasForeignKey("ClientesIdCliente");
-
-                    b.HasOne("sw.Entidades.Configuracion.CatalogoSAT.E_RegimenFiscal", "RegimenFiscal")
-                        .WithMany()
-                        .HasForeignKey("E_RegimenFiscalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clientes");
-
-                    b.Navigation("RegimenFiscal");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Configuracion.Almacen.E_Marca", b =>
-                {
-                    b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
-                        .WithMany()
-                        .HasForeignKey("E_CorporativoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Corporativo");
-                });
-
-            modelBuilder.Entity("sw.Entidades.Configuracion.Almacen.E_Proveedor", b =>
-                {
-                    b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
-                        .WithMany()
-                        .HasForeignKey("E_CorporativoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("E_Corporativo");
-                });
-
-=======
->>>>>>> fcd91d75f51c82a93beb64645390ced025e3248e
             modelBuilder.Entity("sw.Entidades.Configuracion.Gastos.E_Gasto", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
@@ -1580,31 +1460,6 @@ namespace sw.Datos.Migrations
                     b.Navigation("E_Corporativo");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("sw.Entidades.Gastos.E_Gastoreg", b =>
-                {
-                    b.HasOne("sw.Entidades.Administracion.CentroTrabajo.E_CentroTrabajo", "E_CentroTrabajo")
-                        .WithMany()
-                        .HasForeignKey("E_CentroTrabajoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Configuracion.Gastos.E_Gasto", "E_Gasto")
-                        .WithMany()
-                        .HasForeignKey("E_GastoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sw.Entidades.Identity.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("E_CentroTrabajo");
-
-                    b.Navigation("E_Gasto");
-
-                    b.Navigation("User");
-=======
             modelBuilder.Entity("sw.Entidades.Configuracion.Productos.E_Marca", b =>
                 {
                     b.HasOne("sw.Entidades.Administracion.Coorporativo.E_Coorporativo", "E_Corporativo")
@@ -1625,7 +1480,6 @@ namespace sw.Datos.Migrations
                         .IsRequired();
 
                     b.Navigation("E_Corporativo");
->>>>>>> fcd91d75f51c82a93beb64645390ced025e3248e
                 });
 
             modelBuilder.Entity("sw.Entidades.Identity.ApplicationRoleClaim", b =>

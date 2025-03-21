@@ -4,7 +4,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using sw.Entidades.Administracion.Coorporativo;
 
-namespace sw.Entidades.Configuracion.Almacen
+namespace sw.Entidades.Configuracion.Productos
 {
     public class E_Proveedor
     {

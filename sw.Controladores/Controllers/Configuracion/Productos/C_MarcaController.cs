@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
-using sw.Controladores.Model.Configuracion.CatalogosAlmacen.Proveedor;
+using Microsoft.EntityFrameworkCore;
+using sw.Controladores.Model.Configuracion.CatalogosAlmacen.Marca;
 using sw.Datos;
-using sw.Entidades.Configuracion.Almacen;
+using sw.Entidades.Configuracion.Productos;
 
 
 namespace sw.Controladores.Controllers
@@ -16,39 +16,37 @@ namespace sw.Controladores.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "5a67d0af-06a4-4724-8136-7d6989d34123")]
-    public class C_ProveedorController : ControllerBase
+    public class C_MarcaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public C_ProveedorController(ApplicationDbContext context)
+        public C_MarcaController(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
-        // GET: api/C_Proveedor/Listar
+        // GET: api/C_Marca/Listar
         [HttpGet("[action]")]
-        public async Task<IEnumerable<GET_Proveedor>> Listar()
+        public async Task<IEnumerable<GET_Marca>> Listar()
         {
-            var data = await _context.E_Proveedor.ToListAsync();
+            var data = await _context.E_Marcas.ToListAsync();
 
 
-            return data.Select(a => new GET_Proveedor
+            return data.Select(a => new GET_Marca
             {
-                IdProveedor = a.IdProveedor, 
-                Nombre = a.Nombre,
-                SitioWeb = a.SitioWeb,
-                Email = a.Email,
-                Telefono = a.Telefono,                
+                IdMarca = a.IdMarca, 
+                Descripcion = a.Descripcion,
+                
             });
 
         }
 
 
-        // PUT: api/C_Proveedor/Actualizar
+        // PUT: api/C_Marca/Actualizar
         //[Authorize(Policy = "Policy_Marca_Actualizar")]
         [HttpPut("[action]")]
-        public async Task<IActionResult> Actualizar([FromBody] PUT_Proveedor model)
+        public async Task<IActionResult> Actualizar([FromBody] PUT_Marca model)
         {
             if (!ModelState.IsValid)
             {
@@ -56,20 +54,19 @@ namespace sw.Controladores.Controllers
                 {
                     error = ModelState
                 });
-            } 
+            }
+    
 
-            var Data = await _context.E_Proveedor.FirstOrDefaultAsync(a => a.IdProveedor == model.IdProveedor);
+
+            var Data = await _context.E_Marcas.FirstOrDefaultAsync(a => a.IdMarca == model.IdMarca);
 
             if (Data == null)
             {
                 return NotFound();
             }
-            Data.IdProveedor = model.IdProveedor;
+            Data.IdMarca = model.IdMarca;
             Data.E_CorporativoId = model.E_CorporativoId;
-            Data.Nombre = model.Nombre; 
-            Data.SitioWeb = model.SitioWeb;
-            Data.Email = model.Email;
-            Data.Telefono = model.Telefono;
+            Data.Descripcion = model.Descripcion; 
 
 
             try
@@ -77,7 +74,7 @@ namespace sw.Controladores.Controllers
                 await _context.SaveChangesAsync();
                 return Ok(new
                 {
-                    result = "El registro se actualizo correctamente"
+                    result = $"La forma de pago: { model.Descripcion } se actualizo correctamente"
                 });
             }
             catch (DbUpdateConcurrencyException)
@@ -92,10 +89,10 @@ namespace sw.Controladores.Controllers
         }
 
 
-        // POST: api/C_Proveedor/Crear
+        // POST: api/C_Marca/Crear
         //[Authorize(Policy = "Policy_Marca_Crear")]
         [HttpPost("[action]")]
-        public async Task<IActionResult> Crear([FromBody] POST_Proveedor model)
+        public async Task<IActionResult> Crear([FromBody] POST_Marca model)
         {
            if (!ModelState.IsValid)
             {
@@ -105,34 +102,31 @@ namespace sw.Controladores.Controllers
                 });
             }
             
-            var ExistNom = await _context.E_Proveedor.FirstOrDefaultAsync(a => a.Nombre == model.Nombre);
 
-            if (ExistNom != null)
+            var ExistDesc = await _context.E_Marcas.FirstOrDefaultAsync(a => a.Descripcion == model.Descripcion && a.E_CorporativoId == model.E_CorporativoId);
+
+            if (ExistDesc != null)
             {
                 return BadRequest(new
                 {
-                    error = $"Ya existe un  proveedor con este nombre: { model.Nombre}"
+                    error = $"Ya existe una marca con este nombre: { model.Descripcion}"
                 });
             }
 
 
-            E_Proveedor proveedor = new E_Proveedor
+            E_Marca marca = new E_Marca
             {
-                E_CorporativoId  = model.E_CorporativoId, 
-                Nombre = model.Nombre,
-                SitioWeb = model.SitioWeb,
-                Email = model.Email,
-                Telefono = model.Telefono,
-
+                Descripcion = model.Descripcion, 
+                E_CorporativoId = model.E_CorporativoId,
             };
 
-            _context.E_Proveedor.Add(proveedor);
+            _context.E_Marcas.Add(marca);
             try
             {
                 await _context.SaveChangesAsync();
                 return Ok(new
                 {
-                    result = $"El porveedor: { model.Nombre } se registro correctamente"
+                    result = $"La  marca: { model.Descripcion } se registro correctamente"
                 });
             }
             catch (Exception)
@@ -146,25 +140,22 @@ namespace sw.Controladores.Controllers
         }
         
         
-        // GET: api/C_Proveedor/ListarporCorporativo
+        // GET: api/C_Marca/ListarporCorporativo
         [HttpGet("[action]/{IdCorporativo}")]
-        public async Task<IEnumerable<GET_Proveedor>> ListarporCorporativo([FromRoute] int IdCorporativo)
+        public async Task<IEnumerable<GET_Marca>> ListarporCorporativo([FromRoute] int IdCorporativo)
         {
-            var proveedor = await _context.E_Proveedor
-            .OrderBy(a => a.Nombre)
+            var Marca = await _context.E_Marcas
+            .OrderBy(a => a.Descripcion)
             .Where(a => a.E_CorporativoId == IdCorporativo) 
             .ToListAsync();
 
 
 
-            return proveedor.Select(a => new GET_Proveedor
+            return Marca.Select(a => new GET_Marca
             {
-                IdProveedor = a.IdProveedor,
+                IdMarca = a.IdMarca,
                 E_CorporativoId = a.E_CorporativoId,
-                Nombre = a.Nombre,
-                SitioWeb = a.SitioWeb,
-                Telefono = a.Telefono,
-                Email= a.Email, 
+                Descripcion = a.Descripcion,
              
             });
 

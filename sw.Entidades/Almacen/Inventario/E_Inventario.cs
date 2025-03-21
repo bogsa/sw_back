@@ -17,6 +17,9 @@ namespace sw.Entidades.Almacen.Inventario
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public E_Producto E_Producto { get; set; } 
         public Decimal  Existencias { get; set; }
+        public Decimal PrecioBase { get; set; }
+        public string Localizacion { get; set; }
+
    
   
       

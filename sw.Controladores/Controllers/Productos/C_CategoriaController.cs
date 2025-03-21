@@ -23,12 +23,13 @@ namespace sw.Controladores.Controllers
         {
             _context = context;
         }
-        // GET: api/Categoria/Listar
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<GET_Categoria>> Listar()
+        // GET: api/C_Categoria/Listar
+        [HttpGet("[action]/{IdCorporativo}")]
+        public async Task<IEnumerable<GET_Categoria>> Listar([FromRoute] int IdCorporativo)
         {
             var Categoria = await _context.E_Categorias
             .Include(a => a.E_Departamento)
+            .Where(a => a.E_Departamento.E_CorporativoId == IdCorporativo)
             .OrderBy(a => a.Nombre)
             .ToListAsync();
 
@@ -46,12 +47,12 @@ namespace sw.Controladores.Controllers
             });
 
         }
-      
-       
+
+
 
         // PUT: api/Categoria/Actualizar
         //[Authorize(Roles = " Administrador")]
-                [HttpPut("[action]")]
+        [HttpPut("[action]")]
         public async Task<IActionResult> Actualizar([FromBody] PUT_Categoria model)
         {
             if (!ModelState.IsValid)
@@ -110,11 +111,27 @@ namespace sw.Controladores.Controllers
                     error = $"Ya existe una categoria con este nombre: {model.Nombre}"
                 });
             }
+            var statusActual = false;
+            var validarStatusDepto = await _context.E_Departamentos.FirstOrDefaultAsync(a => a.IdDepartamento == model.E_DepartamentoId);
+
+            if (validarStatusDepto != null)
+            {
+                if (validarStatusDepto.Status == false)
+                {
+                    statusActual = false;
+                }
+                else{
+                    statusActual = model.Status;
+                }
+            }
+            else{
+                statusActual = model.Status;
+            }
 
             E_Categoria Categoria = new E_Categoria
             {
                 Nombre = model.Nombre,
-                Status = model.Status,
+                Status = statusActual,
                 E_DepartamentoId = model.E_DepartamentoId
 
             };
@@ -164,7 +181,7 @@ namespace sw.Controladores.Controllers
             });
 
         }
-        // GET: api/C_Categoria/ListarporCorporativo
+        // GET: api/C_Categoria/ListarporCorporativoStatus
         [HttpGet("[action]/{IdCorporativo}")]
         public async Task<IEnumerable<GET_Categoria>> ListarporCorporativoStatus([FromRoute] int IdCorporativo)
         {
@@ -273,6 +290,6 @@ namespace sw.Controladores.Controllers
         }
 
 
- 
+
     }
 }

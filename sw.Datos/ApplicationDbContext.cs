@@ -1,4 +1,3 @@
-
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using sw.Datos.Administracion.UsuarioCentroTrabajoes;
 using sw.Datos.Administracion.TFDs;
 
 using sw.Datos.Configuracion.CatalogoSAT;
-using sw.Datos.Configuracion.Almacen;
+using sw.Datos.Configuracion.Productos;
 using sw.Datos.Configuracion.Gastos;
 
 using sw.Datos.Clientes.Cliente;
@@ -43,7 +42,7 @@ using sw.Entidades.Administracion.TFDs;
 using sw.Entidades.Administracion.PerfilesPer;
 
 using sw.Entidades.Configuracion.CatalogoSAT;
-using sw.Entidades.Configuracion.Almacen;
+using sw.Entidades.Configuracion.Productos;
 using sw.Entidades.Configuracion.Gastos;
 
 using sw.Entidades.Clientes.Cliente;
@@ -85,7 +84,7 @@ namespace sw.Datos
 
 
         //MODULO CONFIGURACION_CATALOGOSAT
-        public DbSet<E_Prueba> E_Pruebas { get; set; }
+ 
         public DbSet<E_FormaPago> E_FormaPago { get; set; }
         public DbSet<E_Impuesto> E_Impuesto { get; set; }
         public DbSet<E_Moneda> E_Moneda { get; set; }
@@ -99,7 +98,7 @@ namespace sw.Datos
         public DbSet<E_ObjetoImpuesto> E_ObjetoImpuestos { get; set; }
         public DbSet<E_TipoFactor> E_TipoFactors { get; set; }
 
-        //MODULO CONFIGURACION_ALMACEN
+        //MODULO CONFIGURACION_PRODUCTO
         public DbSet<E_Marca> E_Marcas { get; set; }
         public DbSet<E_Proveedor> E_Proveedor { get; set; }
 
@@ -111,7 +110,7 @@ namespace sw.Datos
         public DbSet<E_Clientes> E_Clientes { get; set; }
         public DbSet<E_ClienteDatosFiscales> E_ClienteDatosFiscales { get; set; }
 
-        //MODULO ALMACEN
+        //MODULO PRODUCTOS
         public DbSet<E_Departamento> E_Departamentos { get; set; }
         public DbSet<E_Categoria> E_Categorias { get; set; }
         public DbSet<E_Producto> E_Producto { get; set; }
@@ -146,8 +145,7 @@ namespace sw.Datos
             modelBuilder.ApplyConfiguration(new D_TFDsDetalle());
             modelBuilder.ApplyConfiguration(new D_AsignacionTFD());
 
-            //MODULO CONFIGURACION_CATALOGOSAT
-            modelBuilder.ApplyConfiguration(new D_Prueba());
+            //MODULO CONFIGURACION_CATALOGOSAT 
             modelBuilder.ApplyConfiguration(new D_FormaPago());
             modelBuilder.ApplyConfiguration(new D_Impuesto());
             modelBuilder.ApplyConfiguration(new D_Moneda());

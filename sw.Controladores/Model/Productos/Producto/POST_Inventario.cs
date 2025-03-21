@@ -9,6 +9,7 @@ namespace sw.Controladores.Model.Productos.Producto
         public int E_CentroTrabajoId { get; set; } 
         public int E_ProductoId { get; set; } 
         public Decimal  Existencias { get; set; } 
+          public string Localizacion { get; set; }
       
     }
 }

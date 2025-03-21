@@ -21,7 +21,7 @@ namespace sw.Controladores.Model.Productos.Producto
     public string DescripcionCveSat { get; set; }
     public int E_CategoriaId { get; set; }
     public string Categoria { get; set; }
-    public string Localizacion { get; set; }
+  
 
     /*---   COSTOS Y PRECIOS   ---------------------------------------------------------*/
     public int E_ProveedorId { get; set; }

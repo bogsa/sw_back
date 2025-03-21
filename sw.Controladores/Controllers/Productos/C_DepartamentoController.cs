@@ -12,6 +12,7 @@ using sw.Entidades.Productos.Departamento;
 
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Windows.Markup;
 
 namespace sw.Controladores.Controllers
 {
@@ -69,6 +70,22 @@ namespace sw.Controladores.Controllers
             Depto.IdDepartamento = model.IdDepartamento;
             Depto.E_CorporativoId = model.E_CorporativoId;
             Depto.Nombre = model.Nombre;
+            Depto.Status = model.Status;
+
+            if(model.Status == false)
+            {
+               var Cate = await _context.E_Categorias.Where(c => c.E_DepartamentoId == model.IdDepartamento).ToListAsync();
+
+                if (Cate == null)
+                {
+                    return NotFound();
+                }
+                foreach (var x in Cate)
+                {
+                    x.Status = model.Status;
+                }
+                 
+            }
 
             try
             {
@@ -90,8 +107,6 @@ namespace sw.Controladores.Controllers
         }
 
       
-
-
         // POST: api/C_Departamento/Crear
         //[Authorize(Roles = " Administrador")]
         [HttpPost("[action]")]
@@ -101,7 +116,7 @@ namespace sw.Controladores.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var ExistNombre = await _context.E_Departamentos.FirstOrDefaultAsync(a => a.Nombre == model.Nombre);
+            var ExistNombre = await _context.E_Departamentos.FirstOrDefaultAsync(a => a.Nombre == model.Nombre && a.E_CorporativoId == model.E_CorporativoId);
 
             if (ExistNombre != null)
             {
@@ -111,11 +126,13 @@ namespace sw.Controladores.Controllers
                 });
             }
 
+      
+
             E_Departamento Depto = new E_Departamento
             {
                 Nombre = model.Nombre,
                 E_CorporativoId = model.E_CorporativoId,
-                Status = true,
+                Status = model.Status,
 
             };
 
@@ -189,87 +206,5 @@ namespace sw.Controladores.Controllers
             });
 
         }
-
-        // PUT: api/C_Departamento/Desactivar/1
-        [HttpPut("[action]/{id}")]
-        public async Task<IActionResult> Desactivar([FromRoute] int id)
-        {
-
-            if (id <= 0)
-            {
-               return BadRequest(new
-                {
-                    error = "El ID del departameno no existe"
-                });
-            }
-
-            var departamento = await _context.E_Departamentos.FirstOrDefaultAsync(c => c.IdDepartamento == id);
-
-            if (departamento == null)
-            {
-                return NotFound();
-            }
-
-            departamento.Status = false;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return Ok(new
-                {
-                    result = "El departamento de deshabilito correctamente"
-                });
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                // Guardar Excepción
-                  return BadRequest(new
-                {
-                    error = "Error al intentar deshabilitar el departamento"
-                });
-            }
-
-    
-        }
-
-        // PUT: api/_Departamento/Activar/1
-        [HttpPut("[action]/{id}")]
-       public async Task<IActionResult> Activar([FromRoute] int id)
-        {
-
-            if (id <= 0)
-            {
-                 return BadRequest(new
-                {
-                    error = "El ID del departameno no existe"
-                });
-            }
-
-            var departamento = await _context.E_Departamentos.FirstOrDefaultAsync(c => c.IdDepartamento == id);
-
-            if (departamento == null)
-            {
-                return NotFound();
-            }
-
-            departamento.Status = true;
-
-           try
-            {
-                await _context.SaveChangesAsync();
-                return Ok(new
-                {
-                    result = "El departamento se activo correctamente"
-                });
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                // Guardar Excepción
-                  return BadRequest(new
-                {
-                    error = "Error al intentar activar el departamento"
-                });
-            }
-        }
-    }
+  }
 }
