@@ -10,7 +10,7 @@ namespace sw.Entidades.Configuracion.Gastos
 {
     public class E_Gasto
     {
-        [Key]
+        
         public int IdGasto { get; set; }
         public string Descripcion { get; set; }
 

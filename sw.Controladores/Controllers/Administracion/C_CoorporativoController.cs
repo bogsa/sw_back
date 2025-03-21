@@ -9,6 +9,7 @@ using sw.Datos;
 using sw.Controladores.Model.Administracion.Coorporativo;
 using sw.Entidades.Administracion.Coorporativo;
 using sw.Entidades.Clientes.Cliente;
+using sw.Entidades.Clientes.ClienteDatoFiscal;
 using sw.Entidades.Administracion.Empresa;
 using sw.Entidades.Administracion.CentroTrabajo;
 using System.Data;
@@ -127,6 +128,18 @@ namespace sw.Controladores.Controllers
 
                         E_CoorporativoId = Corporativo.IdCoorporativo,
                         Nombre = "Publico en general",
+                        Telefono = "",
+                        Email = "",
+                        Default = true,
+                        Descuento=0.0,
+                        Dcto_Individual=false,
+                        Precio_Individual=false,
+                        Precio_Asignado=1,
+                    };
+                    E_ClienteDatosFiscales ClienteDatoFiscal = new E_ClienteDatosFiscales
+                    {
+                        E_ClienteId = Cliente.IdCliente,
+                        //E_RegimenFiscalId = "",
                         RazonSocial = "",
                         RFC = "XAXX010101000",
                         Calle = "",
@@ -137,14 +150,12 @@ namespace sw.Controladores.Controllers
                         Municipio = "",
                         Estado = "",
                         Pais = "",
-                        TelFijo = "",
                         TelMovil = "",
-                        Email = "",
-                        Default = true,
-
                     };
 
+
                     _context.E_Clientes.Add(Cliente);
+                    _context.E_ClienteDatosFiscales.Add(ClienteDatoFiscal);
                     await _context.SaveChangesAsync();
 
                     transaction.Commit();
@@ -268,6 +279,18 @@ namespace sw.Controladores.Controllers
 
                         E_CoorporativoId = corporativo.IdCoorporativo,
                         Nombre = "Publico en general",
+                        Telefono = "",
+                        Email = "",
+                        Default = true,
+                        Descuento = 0.0,
+                        Dcto_Individual = false,
+                        Precio_Individual = false,
+                        Precio_Asignado = 1,
+                    };
+                    E_ClienteDatosFiscales ClienteDatoFiscal = new E_ClienteDatosFiscales
+                    {
+                        E_ClienteId = Cliente.IdCliente,
+                        //E_RegimenFiscalId = "",
                         RazonSocial = "Publico en general",
                         RFC = "XAXX010101000",
                         Calle = "",
@@ -277,15 +300,14 @@ namespace sw.Controladores.Controllers
                         CP = "",
                         Municipio = "",
                         Estado = "",
-                        Pais = "",
-                        TelFijo = "",
+                        Pais = "",                        
                         TelMovil = "",
-                        Email = "",
-                        Default = true,
 
                     };
 
+
                     _context.E_Clientes.Add(Cliente);
+                    _context.E_ClienteDatosFiscales.Add(ClienteDatoFiscal);
                     await _context.SaveChangesAsync();
 
                     transaction.Commit();

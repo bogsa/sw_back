@@ -12,7 +12,8 @@ namespace sw.Datos.Configuracion.Gastos
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<E_Gasto> builder)
         {
-            builder.ToTable("Conf_Gasto").HasKey(a => a.IdGasto);
+            builder.ToTable("Conf_Gasto")
+                   .HasKey(a => a.IdGasto);
              
         }
     }

@@ -20,6 +20,8 @@ using sw.Datos.Configuracion.Almacen;
 using sw.Datos.Configuracion.Gastos;
 
 using sw.Datos.Clientes.Cliente;
+using sw.Datos.Clientes.ClienteDatoFiscal;
+using sw.Datos.Gastos;
 
 using sw.Datos.Productos.Categoria;
 using sw.Datos.Productos.Departamento;
@@ -45,6 +47,9 @@ using sw.Entidades.Configuracion.Almacen;
 using sw.Entidades.Configuracion.Gastos;
 
 using sw.Entidades.Clientes.Cliente;
+using sw.Entidades.Clientes.ClienteDatoFiscal;
+
+using sw.Entidades.Gastos;
 
 using sw.Entidades.Productos.Categoria;
 using sw.Entidades.Productos.Departamento;
@@ -100,10 +105,11 @@ namespace sw.Datos
 
         //MODULO GASTOS
         public DbSet<E_Gasto> E_Gastos { get; set; }
+        public DbSet<E_Gastoreg> E_Gastoreg { get; set; }
 
         //MODULO CLIENTE
         public DbSet<E_Clientes> E_Clientes { get; set; }
-
+        public DbSet<E_ClienteDatosFiscales> E_ClienteDatosFiscales { get; set; }
 
         //MODULO ALMACEN
         public DbSet<E_Departamento> E_Departamentos { get; set; }
@@ -159,8 +165,10 @@ namespace sw.Datos
             modelBuilder.ApplyConfiguration(new D_Proveedor());
             //MODULO GASTOS
             modelBuilder.ApplyConfiguration(new D_Gasto());
+            modelBuilder.ApplyConfiguration(new D_Gastoreg());
             //MODULO CLIENTE
             modelBuilder.ApplyConfiguration(new D_Clientes());
+            modelBuilder.ApplyConfiguration(new D_ClienteDatosFiscales());
             //MODULO PRODUCTO
             modelBuilder.ApplyConfiguration(new D_Departamento());
             modelBuilder.ApplyConfiguration(new D_Categoria());

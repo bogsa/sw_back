@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Solucion.Controladores.Model.Clientes
+namespace sw.Controladores.Model.Clientes
 {
     public class POST_Cliente
     {
@@ -26,5 +26,8 @@ namespace Solucion.Controladores.Model.Clientes
         public string Email { get; set; }
         public Boolean Default { get; set; }
         public double Descuento { get; set; }
+        public Boolean Dcto_Individual { get; set; }
+        public Boolean Precio_Individual { get; set; }
+        public int Precio_Asignado { get; set; }
     }
 }
