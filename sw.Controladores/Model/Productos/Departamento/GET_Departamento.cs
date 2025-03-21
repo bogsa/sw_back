@@ -11,7 +11,6 @@ namespace sw.Controladores.Model.Productos.Departamento
         public string Nombre { get; set; } 
         public int E_CorporativoId { get; set; } 
         public string NombreCorporativo { get; set; }
-        
         public Boolean Status { get; set; }
     }
 }

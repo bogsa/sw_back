@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text; 
-using sw.Entidades.Configuracion.Almacen;
+using sw.Entidades.Configuracion.Productos;
 using sw.Entidades.Productos.Producto;
 
 namespace sw.Entidades.Productos.Producto

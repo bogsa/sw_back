@@ -12,7 +12,6 @@ namespace sw.Controladores.Model.Productos.Categoria
         public Boolean Status { get; set; } 
         public int E_DepartamentoId { get; set; }
         public string NombreDepartamento { get; set; }
-
         public string NombreCorporativo { get; set; }
 
     }

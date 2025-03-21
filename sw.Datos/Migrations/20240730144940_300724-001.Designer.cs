@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240730144940_300724-001")]
+    partial class _300724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1134,12 +1137,6 @@ namespace sw.Datos.Migrations
                     b.Property<int>("E_ObjetoImpuestoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("E_ProductoDetalleImpuestosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProductoDetallePreciosId")
-                        .HasColumnType("int");
-
                     b.Property<int>("E_ProductoServicioId")
                         .HasColumnType("int");
 
@@ -1157,9 +1154,6 @@ namespace sw.Datos.Migrations
 
                     b.Property<Guid>("IdentificadorUnico")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Localizacion")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LotesCaducidades")
                         .HasColumnType("bit");
@@ -1254,6 +1248,9 @@ namespace sw.Datos.Migrations
 
                     b.Property<decimal>("CantidadMenor")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("E_ProductoId")
                         .HasColumnType("int");

@@ -25,7 +25,7 @@ namespace sw.Controladores.Controllers
         }
 
 
-        // GET: api/ProductoServicio/Listar
+        // GET: api/C_ProductoServicio/Listar
         [HttpGet("[action]")]
         public async Task<IEnumerable<GET_Productoservicio>> Listar()
         {
@@ -41,11 +41,27 @@ namespace sw.Controladores.Controllers
 
         }
 
+        // GET: api/C_ProductoServicio/ListaConcatenada
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<GET_Productoservicio>> ListaConcatenada()
+        {
+            var Producto = await _context.E_ProductoServicios.ToListAsync();
+          
 
-        // PUT: api/ProductoServicio/Actualizar
+            return Producto.Select(a => new GET_Productoservicio
+            {
+                IdProductoServicio = a.IdProductoServicio,
+                Clave = a.Clave,
+                Descripcion = a.Clave + " || " + a.Descripcion, 
+            });
+
+        }
+
+
+        // PUT: api/c_ProductoServicio/Actualizar
         //[Authorize(Roles = " Administrador")]
         [HttpPut("[action]")]
-        [Authorize(Policy = "Policy_ProductosServicios_Actualizar")]
+        //[Authorize(Policy = "Policy_ProductosServicios_Actualizar")]
         public async Task<IActionResult> Actualizar([FromBody] PUT_Productoservicio model)
         {
             if (!ModelState.IsValid)
@@ -86,10 +102,10 @@ namespace sw.Controladores.Controllers
         }
 
 
-        // POST: api/ProductoServicio/Crear
+        // POST: api/C_ProductoServicio/Crear
         //[Authorize(Roles = " Administrador")]
         [HttpPost("[action]")]
-        [Authorize(Policy = "Policy_ProductosServicios_Crear")]
+        //[Authorize(Policy = "Policy_ProductosServicios_Crear")]
         public async Task<IActionResult> Crear([FromBody] POST_Productoservicio model)
         {
             if (!ModelState.IsValid)

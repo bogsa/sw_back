@@ -29,7 +29,7 @@ namespace sw.Controladores.Controllers
         [HttpGet("[action]/{IdCorporativo}")]
         public async Task<IEnumerable<GET_Producto>> ListarporCorporativo([FromRoute] int IdCorporativo)
         {
-            var articulo = await _context.E_Producto
+            var productos = await _context.E_Producto
             .Include(a => a.E_Categoria)
             .Include(a => a.E_Categoria.E_Departamento)
             .Include(a => a.E_ProductoServicio)
@@ -43,7 +43,7 @@ namespace sw.Controladores.Controllers
 
 
 
-            return articulo.Select(a => new GET_Producto
+            return productos.Select(a => new GET_Producto
 
             {
                 IdProducto = a.IdProducto,
@@ -58,8 +58,7 @@ namespace sw.Controladores.Controllers
                 ClaveSat = a.E_ProductoServicio.Clave,
                 DescripcionCveSat = a.E_ProductoServicio.Descripcion,
                 E_CategoriaId = a.E_CategoriaId,
-                Categoria = a.E_Categoria.Nombre,
-                Localizacion = a.Localizacion,
+                Categoria = a.E_Categoria.Nombre, 
                 E_ProveedorId = a.E_ProveedorId,
                 P_nombre = a.E_Proveedor.Nombre,
                 P_email = a.E_Proveedor.Email,
@@ -176,8 +175,7 @@ namespace sw.Controladores.Controllers
                 Modelo = model.Modelo,
                 E_ProductoServicioId = model.E_ProductoServicioId,
                 E_CategoriaId = model.E_CategoriaId,
-                E_ProveedorId = model.E_ProveedorId,
-                Localizacion = model.Localizacion,
+                E_ProveedorId = model.E_ProveedorId, 
                 E_UnidadMedidaCId = model.E_UnidadMedidaCId,
                 E_UnidadMedidaVId = model.E_UnidadMedidaVId,
                 PrecioCompra = model.PrecioCompra,
@@ -398,8 +396,7 @@ namespace sw.Controladores.Controllers
             a.Marca = model.Marca;
             a.Modelo = model.Modelo;
             a.E_ProductoServicioId = model.E_ProductoServicioId;
-            a.E_CategoriaId = model.E_CategoriaId;
-            a.Localizacion = model.Localizacion;
+            a.E_CategoriaId = model.E_CategoriaId; 
 
             try
             {

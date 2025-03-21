@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sw.Datos;
 
@@ -11,9 +12,11 @@ using sw.Datos;
 namespace sw.Datos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240729194040_290724-001")]
+    partial class _290724001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -476,12 +479,6 @@ namespace sw.Datos.Migrations
                     b.Property<decimal>("Existencias")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Localizacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PrecioBase")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("IdInventario");
 
                     b.HasIndex("E_CentroTrabajoId");
@@ -673,6 +670,22 @@ namespace sw.Datos.Migrations
                     b.HasKey("IdProductoServicio");
 
                     b.ToTable("Conf_ProductoServicio", (string)null);
+                });
+
+            modelBuilder.Entity("sw.Entidades.Configuracion.CatalogoSAT.E_Prueba", b =>
+                {
+                    b.Property<int>("IdPrueba")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPrueba"));
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdPrueba");
+
+                    b.ToTable("Conf_Prueba", (string)null);
                 });
 
             modelBuilder.Entity("sw.Entidades.Configuracion.CatalogoSAT.E_RegimenFiscal", b =>
@@ -1132,12 +1145,6 @@ namespace sw.Datos.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("E_ObjetoImpuestoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProductoDetalleImpuestosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("E_ProductoDetallePreciosId")
                         .HasColumnType("int");
 
                     b.Property<int>("E_ProductoServicioId")

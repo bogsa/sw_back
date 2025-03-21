@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using sw.Entidades.Administracion.Coorporativo;
  
@@ -13,7 +14,7 @@ namespace sw.Entidades.Clientes.Cliente
         public int E_CoorporativoId { get; set; }
         public E_Coorporativo E_Coorporativo { get; set; }
 
-
+        [Required]
         public string Nombre { get; set; }
         public string RazonSocial { get; set; }
         public string RFC { get; set; }

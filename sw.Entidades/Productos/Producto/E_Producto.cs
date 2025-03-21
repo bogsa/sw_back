@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using sw.Entidades.Productos.Categoria; 
-using sw.Entidades.Configuracion.Almacen;
+using sw.Entidades.Productos.Categoria;
+using sw.Entidades.Configuracion.Productos;
 using sw.Entidades.Configuracion.CatalogoSAT;
 using sw.Entidades.Productos.Producto;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace sw.Entidades.Productos.Producto
 {
@@ -23,16 +24,14 @@ namespace sw.Entidades.Productos.Producto
 
         public string NombreProducto { get; set; }
         public string DescripcionProducto { get; set; }
-        public string Marca { get; set; }
-        public string Modelo { get; set; }
 
         public int E_ProductoServicioId { get; set; }
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public E_ProductoServicio E_ProductoServicio { get; set; }
+        public string Marca { get; set; }
+        public string Modelo { get; set; }
         public int E_CategoriaId { get; set; }
-
         public E_Categoria E_Categoria { get; set; }
-
         public string Localizacion { get; set; }
 
         /*---   COSTOS Y PRECIOS   ---------------------------------------------------------*/
@@ -49,6 +48,8 @@ namespace sw.Entidades.Productos.Producto
 
         public Decimal PrecioCompra { get; set; }
         public Decimal Factor { get; set; }
+        public int E_ProductoDetallePreciosId { get; set; }
+        public ICollection<E_ProductoDetallePrecios> E_ProductoDetallePrecios { get; set; }
 
 
         /*---   IMPUESTOS   ---------------------------------------------------------*/
@@ -56,9 +57,10 @@ namespace sw.Entidades.Productos.Producto
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public E_ObjetoImpuesto E_ObjetoImpuesto { get; set; }
         public string CuentaPredial { get; set; }
+
+        public int E_ProductoDetalleImpuestosId { get; set; }
         public ICollection<E_ProductoDetalleImpuestos> E_ProductoDetalleImpuestos { get; set; }
-        /*--- PRECIOS    ---------------------------------------------------------*/
-        public ICollection<E_ProductoDetallePrecios> E_ProductoDetallePrecios { get; set; }
+
 
 
         /*--- CONFIGURACION   ---------------------------------------------------------*/
